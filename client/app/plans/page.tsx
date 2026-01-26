@@ -1,39 +1,160 @@
-import React from "react";
-import MainNav from "../components/layout/MainNav";
+"use client";
 
-export default function page() {
+import React, { useState } from "react";
+import MainNav from "../components/layout/MainNav";
+import clsx from "clsx";
+
+export default function Page() {
+  const [active, setActive] = useState(1);
+
   return (
     <>
       <MainNav />
-      <div className="flex flex-col w-full lg:h-[93vh] bg-green-50 pt-20 items-center">
-        <h1 className="lg:text-6xl lg:font-bold">
+
+      <section className="w-full min-h-svh bg-green-50 pt-24 pb-20 px-4 flex flex-col items-center">
+        {/* Heading */}
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center">
           Flexible Plans for Every Farm Size
         </h1>
-        <h3 className="lg:text-3xl mt-5">
-          choose the perfert plan to grow your arricutural business
-        </h3>
-        <div className="flex gap-10 mt-20">
-          <Card />
-          <Card />
-          <Card />
+        <p className="mt-4 text-sm sm:text-base md:text-lg lg:text-2xl text-gray-600 text-center max-w-3xl">
+          Choose the perfect plan to grow your agricultural business
+        </p>
+
+        {/* Cards Wrapper */}
+        <div
+          className="
+          mt-14
+          w-full
+          flex
+          lg:flex-row
+          xl:flex-row
+          2xl:flex-row
+          xs:flex-col
+          xs:items-center
+          gap-6
+          items-stretch
+          justify-start
+          overflow-x-auto
+          md:overflow-x-auto
+          lg:overflow-visible
+          lg:justify-center
+          snap-x snap-mandatory
+          pb-6
+        "
+        >
+          <PricingCard
+            title="Free"
+            price="₹0"
+            features={[
+              "10 Products",
+              "Basic Vendor Access",
+              "Limited Dashboard",
+              "Email Support",
+            ]}
+            active={active === 0}
+            onClick={() => setActive(0)}
+          />
+
+          <PricingCard
+            title="Pro"
+            price="₹999"
+            highlight
+            features={[
+              "Unlimited Products",
+              "Full Vendor Access",
+              "Advanced Dashboard",
+              "Priority Support",
+            ]}
+            active={active === 1}
+            onClick={() => setActive(1)}
+          />
+
+          <PricingCard
+            title="Enterprise"
+            price="₹2999"
+            features={[
+              "Unlimited Products",
+              "Multi-vendor Access",
+              "Analytics & Reports",
+              "Dedicated Support",
+            ]}
+            active={active === 2}
+            onClick={() => setActive(2)}
+          />
         </div>
-      </div>
+      </section>
     </>
   );
 }
 
-const Card = function () {
+type CardProps = {
+  title: string;
+  price: string;
+  features: string[];
+  active?: boolean;
+  highlight?: boolean;
+  onClick?: () => void;
+};
+
+const PricingCard = ({
+  title,
+  price,
+  features,
+  active,
+  highlight,
+  onClick,
+}: CardProps) => {
   return (
-    <div className="flex lg:flex-col items-start gap-2 lg:w-72 bg-red-300 lg:p-10">
-      <h1 className="lg:text-2xl lg:font-bold">Free</h1>
-      <h3 className="lg:text-4xl tracking-wider">0/month</h3>
-      <ul className="lg:text-lg flex flex-col gap-3">
-        <li>10 product</li>
-        <li>Basic Vender Access</li>
-        <li>Basic Vender</li>
-        <li>Email support</li>
+    <div
+      onClick={onClick}
+      className={clsx(
+        `
+        snap-center
+        cursor-pointer
+        transition-all duration-300
+        rounded-3xl
+        bg-white
+        shadow-md
+        flex flex-col
+        p-6 sm:p-8
+        `,
+        active
+          ? "border-2 border-green-600 scale-105 shadow-xl"
+          : "opacity-90 hover:opacity-100",
+        // widths per device
+        "w-[260px] sm:w-[280px] md:w-[300px]",
+        active && "lg:w-[380px] xl:w-[420px]",
+      )}
+    >
+      {highlight && (
+        <span className="mb-2 self-start bg-green-600 text-white text-xs px-3 py-1 rounded-full">
+          Most Popular
+        </span>
+      )}
+
+      <h2 className="text-xl sm:text-2xl font-bold">{title}</h2>
+
+      <p className="text-3xl sm:text-4xl font-extrabold text-green-700 mt-2">
+        {price}
+        <span className="text-sm font-medium text-gray-500"> / month</span>
+      </p>
+
+      <ul className="mt-6 flex flex-col gap-3 text-sm sm:text-base text-gray-600">
+        {features.map((item, i) => (
+          <li key={i}>✓ {item}</li>
+        ))}
       </ul>
-      <button>Get Started</button>
+
+      <button
+        className={clsx(
+          "mt-5 py-3 rounded-xl font-medium transition",
+          active
+            ? "bg-green-600 text-white hover:bg-green-700"
+            : "border border-green-600 text-green-700 hover:bg-green-50",
+        )}
+      >
+        Get Started
+      </button>
     </div>
   );
 };
