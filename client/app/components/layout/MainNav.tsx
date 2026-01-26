@@ -25,7 +25,7 @@ export default function MainNav() {
       <div className="h-16 flex items-center justify-between px-5 mx-auto">
         <Link
           href="/"
-          className="font-bold font-mono tracking-widest text-lg sm:text-xl md:text-2xl lg:text-3xl text-white"
+          className="font-bold tracking-widest text-lg sm:text-xl md:text-2xl lg:text-3xl text-white"
         >
           Fresh Agri
         </Link>
