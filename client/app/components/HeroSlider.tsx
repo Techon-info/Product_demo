@@ -68,12 +68,12 @@ export default function HeroSlider() {
 
   return (
     <div
-      className="relative w-full h-[60vh] overflow-hidden mt-3 rounded"
+      className="relative w-full h-[60vh] overflow-hidden rounded"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <motion.div
-        className="flex h-full"
+        className="flex h-full cursor-grab"
         animate={{ x: -index * width }}
         transition={{ ease: "easeInOut", duration: 0.4 }}
         drag="x"
@@ -96,9 +96,9 @@ export default function HeroSlider() {
               src={slide.image}
               alt={slide.title}
               fill
-              className="object-cover"
-              placeholder="blur"
-              blurDataURL="/blur.png"
+              className="object-fill"
+              // placeholder="blur"
+              // blurDataURL="/blur.png"
               priority={i === 1}
             />
 
