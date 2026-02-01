@@ -1,9 +1,12 @@
+import React from "react";
 import MainNav from "./components/layout/MainNav";
+import Hero from "./components/layout/Hero";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-1 h-screen w-screen bg-green-50">
+    <main className="p-16 bg-gray-200 min-h-screen">
       <MainNav />
-    </div>
+      <Hero />
+    </main>
   );
 }
