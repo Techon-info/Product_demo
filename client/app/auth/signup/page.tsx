@@ -28,11 +28,12 @@ export default function SignupPage() {
     defaultValues: { role: "user" },
   });
 
-  const roleValue = watch("role");
-
   useEffect(() => {
-    setSelectedRole(roleValue);
-  }, [roleValue]);
+    const subscription = watch((data) => {
+      setSelectedRole(data.role || "user");
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
@@ -121,6 +122,22 @@ export default function SignupPage() {
 
           <div>
             <label className="text-sm font-medium">Password</label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <input
+                type="password"
+                {...register("password", { required: true })}
+                className="mt-1 w-full rounded-lg border pl-10 pr-3 py-2 outline-none focus:ring-2 focus:ring-green-400"
+              />
+            </div>
+            {errors.password && (
+              <span className="text-xs text-red-500">
+                *Password is required
+              </span>
+            )}
+          </div>
+          <div>
+            <label className="text-sm font-medium">Confirm Password</label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
