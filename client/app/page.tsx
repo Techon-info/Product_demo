@@ -4,7 +4,7 @@ import Hero from "./components/layout/Hero";
 
 export default function HomePage() {
   return (
-    <main className="p-16 bg-gray-200 min-h-screen">
+    <main className="xs:p-2 lg:p-16 bg-gray-200 min-h-screen">
       <MainNav />
       <Hero />
     </main>
